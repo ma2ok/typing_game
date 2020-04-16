@@ -1,29 +1,34 @@
-'use scrict'
+'use strict';
 
 {
-  const word ='apple';
-  let loc =0;
-  let score =0;
-  let miss =0;
+  const word = 'apple';
+  let loc = 0;
+  let score = 0;
+  let miss = 0;
 
   const target = document.getElementById('target');
-  const scoreLavbel = document.getElementById('score');
-  const missLavbel = document.getElementById('miss');
+  const scoreLabel = document.getElementById('score');
+  const missLabel = document.getElementById('miss');
 
   target.textContent = word;
 
-  window.addEventListener('keydown',(e) =>{
-    console.log(e.key);
-    if (e.key === word [loc]){
-      console.log('score');
-        loc++;
-        score++;
-        scoreLavbel.textContent =score;
-      } else {
-        console.log('miss');
-        miss++;
-        missLavbel.textContent =miss;
+  function updateTarget() {
+    let placeholder = '';
+    for (let i = 0; i < loc; i++) {
+      placeholder += '_';
+    }
+    target.textContent = placeholder + word.substring(loc);
+  }
 
-      }
+  window.addEventListener('keydown', e => {
+    if (e.key === word[loc]) {
+      loc++;
+      updateTarget();
+      score++;
+      scoreLabel.textContent = score;
+    } else {
+      miss++;
+      missLabel.textContent = miss;
+    }
   });
 }
